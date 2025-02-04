@@ -1,0 +1,95 @@
+<main class="container mt-4">
+  @if (drivers.length === 0) {
+    <div class="alert alert-info" role="alert">
+      <h3 class="mb-0">No drivers available at the moment</h3>
+    </div>
+  } @else {
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Driver ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Licence</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (driver of drivers; track driver.driver_id) {
+                <tr>
+                  <td>{{ driver.driver_id }}</td>
+                  <td>{{ driver.driver_name | uppercase }}</td>
+                  <td>{{ driver.driver_department }}</td>
+                  <td>{{ driver.driver_licence }}</td>
+                  <td>
+                    <span class="badge {{ driver.driver_isActive ? 'bg-success' : 'bg-danger' }}">
+                      {{ driver.driver_isActive ? "Active" : "Inactive" }}
+                    </span>
+                  </td>
+                  <td>
+                    <button (click)="onDeleteDriver(driver._id!)" class="btn btn-danger btn-sm me-2">
+                      <i class="bi bi-trash me-1"></i> Delete
+                    </button>
+                    <button (click)="toggleShowPackages(driver._id)" class="btn btn-info btn-sm">
+                      <i class="bi bi-box me-1"></i> {{ isSelectedDriver(driver._id) ? 'Hide Packages' : 'Show Packages' }}
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    @if (selectedDriver) {
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h4 class="mb-0">Packages for Driver: {{ selectedDriver.driver_name }}</h4>
+        </div>
+        <div class="card-body">
+          @if (hasAssignedPackages(selectedDriver)) {
+            <div class="table-responsive">
+              <table class="table table-hover table-striped">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Package ID</th>
+                    <th>Title</th>
+                    <th>Weight</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (package of selectedDriver.assigned_packages; track package._id) {
+                    <tr>
+                      <td>{{ package.package_id }}</td>
+                      <td>{{ package.package_title }}</td>
+                      <td>{{ package.package_weight }}</td>
+                      <td>
+                        <span class="d-inline-block text-truncate" style="max-width: 150px" title="{{ package.package_destination }}">
+                          {{ package.package_destination }}
+                        </span>
+                      </td>
+                      <td>
+                        <span class="badge {{ package.isAllocated ? 'bg-success' : 'bg-warning' }}">
+                          {{ package.isAllocated ? 'Allocated' : 'Unallocated' }}
+                        </span>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <p class="text-muted">No packages found for this driver</p>
+          }
+        </div>
+      </div>
+    }
+  }
+</main>

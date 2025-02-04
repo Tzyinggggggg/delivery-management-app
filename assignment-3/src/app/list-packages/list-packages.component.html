@@ -1,0 +1,140 @@
+<main class="container mt-4">
+  @if (packages.length === 0) {
+  <div class="alert alert-info" role="alert">
+    <h3 class="mb-0">No packages available at the moment</h3>
+  </div>
+  } @else {
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th style="width: 80px">ID</th>
+              <th style="width: 120px">Package ID</th>
+              <th style="width: 200px">Title</th>
+              <th style="width: 100px">Weight</th>
+              <th style="width: 200px">Destination</th>
+              <th style="width: 300px">Description</th>
+              <th style="width: 120px">Is Allocated</th>
+              <th style="width: 150px">Driver ID</th>
+              <th style="width: 150px">Created At</th>
+              <th style="width: 200px">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (package of packages; track package._id) {
+            <tr>
+              <td>{{ package._id }}</td>
+              <td>{{ package.package_id }}</td>
+              <td>{{ package.package_title }}</td>
+              <td>{{ package.package_weight | weight }}</td>
+              <td>
+                <span
+                  class="d-inline-block text-truncate"
+                  style="max-width: 200px"
+                  title="{{ package.package_destination }}"
+                >
+                  {{ package.package_destination }}
+                </span>
+              </td>
+              <td>
+                <span
+                  class="d-inline-block text-truncate"
+                  style="max-width: 300px"
+                  title="{{ package.description }}"
+                >
+                  {{ package.description }}
+                </span>
+              </td>
+              <td>
+                <span
+                  class="badge {{
+                    package.isAllocated ? 'bg-success' : 'bg-warning'
+                  }}"
+                >
+                  {{ package.isAllocated ? "Allocated" : "Unallocated" }}
+                </span>
+              </td>
+              <td>{{ getDriverId(package.driver_id) }}</td>
+              <td>{{ package.createdAt }}</td>
+              <td>
+                <button
+                  (click)="onDeletePackage(package._id)"
+                  class="btn btn-danger btn-sm me-2"
+                >
+                  <i class="bi bi-trash me-1"></i> Delete
+                </button>
+                <button
+                  (click)="toggleShowDrivers(package._id)"
+                  class="btn btn-info btn-sm"
+                >
+                  <i class="bi bi-person me-1"></i>
+                  {{
+                    isSelectedPackage(package._id)
+                      ? "Hide Driver"
+                      : "Show Driver"
+                  }}
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display the driver details for the selected package outside the table -->
+  @if (selectedPackage && isSelectedPackage(selectedPackage._id)) {
+  <div class="card mt-4">
+    <div class="card-header bg-info text-white">
+      <h5 class="mb-0">
+        Driver Details for Package: {{ selectedPackage.package_title }}
+      </h5>
+    </div>
+    <div class="card-body">
+      @if (hasAssignedDriver(selectedPackage)) {
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Department</th>
+              <th>License</th>
+              <th>Status</th>
+              <th>Driver ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ selectedPackage.driver_id?.driver_name }}</td>
+              <td>{{ selectedPackage.driver_id?.driver_department }}</td>
+              <td>{{ selectedPackage.driver_id?.driver_licence }}</td>
+              <td>
+                <span
+                  class="badge {{
+                    selectedPackage.driver_id?.driver_isActive
+                      ? 'bg-success'
+                      : 'bg-danger'
+                  }}"
+                >
+                  {{
+                    selectedPackage.driver_id?.driver_isActive
+                      ? "Active"
+                      : "Inactive"
+                  }}
+                </span>
+              </td>
+              <td>{{ selectedPackage.driver_id?.driver_id }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      } @else {
+      <p class="text-muted">No driver assigned to this package</p>
+      }
+    </div>
+  </div>
+  } }
+</main>

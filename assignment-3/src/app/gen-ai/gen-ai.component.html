@@ -1,0 +1,70 @@
+<main class="container mt-4">
+  @if (packages.length === 0) {
+  <div class="alert alert-info" role="alert">
+    <h3 class="mb-0">No packages available at the moment</h3>
+  </div>
+  } @else {
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Package ID</th>
+              <th>Title</th>
+              <th>Weight</th>
+              <th>Destination</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (package of packages; track package._id) {
+            <tr>
+              <td>{{ package._id }}</td>
+              <td>{{ package.package_id }}</td>
+              <td>{{ package.package_title }}</td>
+              <td>{{ package.package_weight | weight }}</td>
+              <td>{{ package.package_destination }}</td>
+              <td>
+                <span
+                  class="d-inline-block text-truncate"
+                  style="max-width: 150px"
+                  title="{{ package.description }}"
+                >
+                  {{ package.description }}
+                </span>
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary btn-sm"
+                  (click)="calculateDistance(package)"
+                >
+                  <i class="bi bi-calculator me-1"></i> Calculate Distance
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="gemini-frame" class="card">
+    <div class="card-header bg-info text-white">
+      <h4 class="mb-0">Gemini API Response</h4>
+    </div>
+    <div class="card-body">
+      <div id="gemini-response" class="response-box">
+        @if (geminiResponse) {
+        {{ geminiResponse }}
+        } @else {
+        <p class="text-muted">Click "Calculate Distance" to get a response</p>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</main>

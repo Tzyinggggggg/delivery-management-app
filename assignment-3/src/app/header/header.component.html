@@ -1,0 +1,138 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <img
+        src="assets/logo.png"
+        alt="Express Delivery Logo"
+        class="d-inline-block align-top"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="isMenuCollapsed = !isMenuCollapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      [ngbCollapse]="isMenuCollapsed"
+      class="collapse navbar-collapse"
+      id="navbarNav"
+    >
+      <ul class="navbar-nav">
+        <li class="nav-item" ngbDropdown>
+          <a
+            class="nav-link"
+            ngbDropdownToggle
+            id="driversDropdown"
+            role="button"
+          >
+            Drivers Actions
+          </a>
+          <div ngbDropdownMenu aria-labelledby="driversDropdown">
+            <a
+              ngbDropdownItem
+              routerLink="/add-driver"
+              routerLinkActive="active"
+              >Add Driver</a
+            >
+            <a
+              ngbDropdownItem
+              routerLink="/list-drivers"
+              routerLinkActive="active"
+              >List Drivers</a
+            >
+            <a
+              ngbDropdownItem
+              routerLink="/delete-driver"
+              routerLinkActive="active"
+              >Delete Driver</a
+            >
+            <a
+              ngbDropdownItem
+              routerLink="/update-driver"
+              routerLinkActive="active"
+              >Update Driver</a
+            >
+          </div>
+        </li>
+        <li class="nav-item" ngbDropdown>
+          <a
+            class="nav-link"
+            ngbDropdownToggle
+            id="packagesDropdown"
+            role="button"
+          >
+            Packages Actions
+          </a>
+          <div ngbDropdownMenu aria-labelledby="packagesDropdown">
+            <a
+              ngbDropdownItem
+              routerLink="/add-package"
+              routerLinkActive="active"
+              >Add Package</a
+            >
+            <a ngbDropdownItem routerLink="/list-packages" routerLinkActive="active"
+              >List Packages</a
+            >
+            <a
+              ngbDropdownItem
+              routerLink="/delete-package"
+              routerLinkActive="active"
+              >Delete Package</a
+            >
+            <a
+              ngbDropdownItem
+              routerLink="/update-package"
+              routerLinkActive="active"
+              >Update Package</a
+            >
+          </div>
+        </li>
+        <li class="nav-item" ngbDropdown>
+          <a
+            class="nav-link"
+            ngbDropdownToggle
+            id="cloudServicesDropdown"
+            role="button"
+          >
+            Cloud Services
+          </a>
+          <div ngbDropdownMenu aria-labelledby="cloudServicesDropdown">
+            <a
+              ngbDropdownItem
+              routerLink="/translation"
+              routerLinkActive="active"
+              >Translate</a
+            >
+            <a
+              ngbDropdownItem
+              routerLink="/text2speech"
+              routerLinkActive="active"
+              >Text 2 Speech</a
+            >
+            <a
+              ngbDropdownItem
+              routerLink="/gen-ai"
+              routerLinkActive="active"
+              >Generative AI</a
+            >
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/statistics" routerLinkActive="active"
+            >Statistics</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/login"
+            routerLinkActive="active"
+            >Login</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

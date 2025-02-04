@@ -1,0 +1,41 @@
+<main class="container">
+  @if (drivers.length === 0) {
+    <h3>No drivers at the moment</h3>
+  } @else {
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Driver ID</th>
+          <th>Name</th>
+          <th>Department</th>
+          <th>Licence</th>
+          <th>Is Active</th>
+          <th>Created At</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (driver of drivers; track $index) {
+          <tr>
+            <td>{{ driver._id }}</td>
+            <td>{{ driver.driver_id }}</td>
+            <td>{{ driver.driver_name | uppercase }}</td>
+            <td>{{ driver.driver_department }}</td>
+            <td>{{ driver.driver_licence }}</td>
+            <td>{{ driver.driver_isActive ? "Yes" : "No" }}</td>
+            <td>{{ driver.driver_createdAt }}</td>
+            <td>
+              <button
+                (click)="onDeleteDriver(driver._id!)"
+                class="btn btn-danger btn-sm delete-driver"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</main>

@@ -1,0 +1,41 @@
+<main class="container mt-4">
+  <h1 class="text-center">Update Package</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div>
+            <div class="mb-3">
+              <label for="packageId" class="form-label"
+                >Package Object ID</label
+              >
+              <input
+                type="text"
+                [(ngModel)]="packageId"
+                class="form-control"
+                id="packageId"
+                placeholder="Enter Package Object Id"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="package_destination" class="form-label"
+                >Package Destination</label
+              >
+              <input
+                type="text"
+                [(ngModel)]="packageDestination"
+                class="form-control"
+                id="package_destination"
+                placeholder="Enter Package Destination"
+              />
+            </div>
+            <button (click)="updatePackage()" class="btn btn-primary">
+              Update Package
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

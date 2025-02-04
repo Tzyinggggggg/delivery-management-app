@@ -1,0 +1,56 @@
+<main class="container mt-4">
+  <h1 class="text-center">Update Driver</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div>
+            <div class="mb-3">
+              <label for="driverId" class="form-label">Driver Object ID</label>
+              <input
+                type="text"
+                [(ngModel)]="driverId"
+                class="form-control"
+                id="driverId"
+                placeholder="Enter Driver Object Id"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="driver_licence" class="form-label"
+                >Driver Licence</label
+              >
+              <input
+                type="text"
+                [(ngModel)]="driverLicence"
+                class="form-control"
+                id="driver_licence"
+                placeholder="Enter driver licence"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="driver_department" class="form-label"
+                >Driver Department</label
+              >
+              <select
+                [(ngModel)]="driverDepartment"
+                class="form-select"
+                id="driver_department"
+              >
+                <option value="">Select department</option>
+                <option value="food">Food</option>
+                <option value="furniture">Furniture</option>
+                <option value="electronic">Electronic</option>
+              </select>
+            </div>
+
+            <button (click)="updateDriver()" class="btn btn-primary">
+              Update Driver
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

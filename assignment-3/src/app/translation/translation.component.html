@@ -1,0 +1,84 @@
+<main class="container mt-4">
+  @if (packages.length === 0) {
+  <div class="alert alert-info text-center" role="alert">
+    <h3 class="mb-0">No packages available at the moment</h3>
+  </div>
+  } @else {
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Weight</th>
+              <th>Destination</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (package of packages; track package._id) {
+            <tr>
+              <td>{{ package._id }}</td>
+              <td>{{ package.package_title }}</td>
+              <td>{{ package.package_weight | weight }}</td>
+              <td>{{ package.package_destination }}</td>
+              <td>
+                <p
+                  class="text-truncate"
+                  style="max-width: 200px"
+                  title="{{ package.description }}"
+                >
+                  {{ package.description }}
+                </p>
+              </td>
+              <td>
+                @if (package.description) {
+                <div class="d-flex align-items-center">
+                  <select
+                    [(ngModel)]="selectedLanguage[package._id]"
+                    class="form-select form-select-sm me-2"
+                    style="width: auto"
+                  >
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="nl">Dutch</option>
+                    <option value="zh">Chinese</option>
+                    <option value="hi">Hindi</option>
+                  </select>
+                  <button
+                    (click)="translate(package)"
+                    class="btn btn-primary btn-sm"
+                  >
+                    Translate
+                  </button>
+                </div>
+                }
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section for showing translated description -->
+  @if (translatedPackageId && translatedMessage[translatedPackageId]) {
+  <div class="card mt-4">
+    <div class="card-body">
+      <h4 class="card-title">Translated Description</h4>
+      <p class="card-text">
+        <strong>Package ID:</strong> {{ translatedPackageId }}
+      </p>
+      <p class="card-text">
+        <strong>Translated Text:</strong>
+        {{ translatedMessage[translatedPackageId] }}
+      </p>
+    </div>
+  </div>
+  } }
+</main>

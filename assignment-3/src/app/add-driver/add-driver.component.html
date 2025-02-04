@@ -1,0 +1,60 @@
+<main class="container mt-4">
+  <h1 class="text-center">Add Driver</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div>
+            <div class="mb-3">
+              <label for="driver_name" class="form-label">Driver Name</label>
+              <input
+                type="text"
+                [(ngModel)]="driver.driver_name"
+                class="form-control"
+                id="driver_name"
+                placeholder="Enter driver name"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="driver_department" class="form-label">Driver Department</label>
+              <select
+                [(ngModel)]="driver.driver_department"
+                class="form-select"
+                id="driver_department"
+              >
+                <option value="">Select department</option>
+                <option value="food">Food</option>
+                <option value="furniture">Furniture</option>
+                <option value="electronic">Electronic</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="driver_licence" class="form-label">Driver Licence</label>
+              <input
+                type="text"
+                [(ngModel)]="driver.driver_licence"
+                class="form-control"
+                id="driver_licence"
+                placeholder="Enter driver licence"
+              />
+            </div>
+
+            <div class="mb-3 form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="driver_isActive"
+                [(ngModel)]="driver.driver_isActive"
+              />
+              <label class="form-check-label" for="driver_isActive">Is Active</label>
+            </div>
+
+            <button (click)="addDriver()" class="btn btn-primary">Add Driver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

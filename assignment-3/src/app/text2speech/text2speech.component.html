@@ -1,0 +1,57 @@
+<main class="container mt-4">
+  <ng-container *ngIf="drivers.length > 0; else noDrivers">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Driver ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Licence</th>
+                <th>Is Active</th>
+                <th>Created At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let driver of drivers; trackBy: trackByDriverId">
+                <td>{{ driver._id }}</td>
+                <td>{{ driver.driver_id }}</td>
+                <td>{{ driver.driver_name | uppercase }}</td>
+                <td>{{ driver.driver_department }}</td>
+                <td>{{ driver.driver_licence }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{'bg-success': driver.driver_isActive, 'bg-danger': !driver.driver_isActive}">
+                    {{ driver.driver_isActive ? "Active" : "Inactive" }}
+                  </span>
+                </td>
+                <td>{{ driver.driver_createdAt | date:'short' }}</td>
+                <td>
+                  <button (click)="onConvertToSpeech(driver)" class="btn btn-primary btn-sm">
+                    <i class="bi bi-volume-up me-1"></i> Convert to Speech
+                  </button>
+                  <div *ngIf="getAudioUrl(driver.driver_id)" class="mt-2">
+                    <audio controls class="w-100">
+                      <source [src]="getAudioUrl(driver.driver_id)" type="audio/mp3" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noDrivers>
+    <div class="alert alert-warning" role="alert">
+      <h4 class="alert-heading">No Drivers Found</h4>
+      <p class="mb-0">There are currently no drivers in the system.</p>
+    </div>
+  </ng-template>
+</main>
