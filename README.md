@@ -1,6 +1,6 @@
 <!-- @format -->
 
-in vm:
+in vm (Previously hosted on GCP with school funding, but no longer active.)
 
 1.  cd assignment-3/backend
 2.  node app.js
